@@ -10,6 +10,7 @@
 </head>
 <body>
 <div class="container">
+	<a href="insertform.do">회원 추가 폼</a>
 	<h1>회원 목록 입니다.</h1>
 	<table class="table">
 		<thead class="thead-dark">
