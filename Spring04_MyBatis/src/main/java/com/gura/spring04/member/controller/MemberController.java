@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gura.spring04.member.dao.MemberDao;
@@ -16,9 +18,17 @@ public class MemberController {
 	@Autowired
 	private MemberDao dao;
 	
+	//회원 삭제 요청 처리
+	@RequestMapping("/member/delete")
+	public String delete(@RequestParam int num) {
+		dao.delete(num);
+		//리다일렉트 응답
+		return "redirect:/member/list.do";
+	}
+	
 	//회원 추가 요청처리
 	@RequestMapping("/member/insert")
-	public String insert(MemberDto dto) {
+	public String insert(@ModelAttribute MemberDto dto) {
 		//회원 정보를 DB 에 저장하고
 		dao.insert(dto);
 		//view page 로 forward 이동해서 응답
