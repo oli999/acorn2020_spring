@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Car 객체를 bean 으로 만들려고 한다면? -->
+	
+	<!-- e1=new Engine(); -->
+	<bean id="e1" class="test.auto.Engine"/>
+	
+	<!-- car1=new Car(e1); -->
+	<bean id="car1" class="test.auto.Car">
+		<constructor-arg name="engine" ref="e1"/>
+	</bean>
+	
+	<!-- 
+		sedan1=new Sedan();
+		sedan1.setName("소나타");
+		sedan1.setWeight(1000);
+		sedan1.setEngine(e1);
+	 -->
+	<bean id="sedan1" class="test.auto.Sedan">
+		<property name="name" value="소나타"/>
+		<property name="weight" value="1000"/>
+		<property name="engine" ref="e1"/>
+	</bean>
+</beans>
+
+
+
+
+
+
