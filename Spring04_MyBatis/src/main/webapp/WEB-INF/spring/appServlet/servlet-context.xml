@@ -69,7 +69,12 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+	<!-- 
+		com.gura.spring04 하위 페키지를 모두 스캔해서 bean 으로 만들것들은 
+		만들어서 관리한다.
+		@Controller, @Service, @Repository, @Component .. 등등
+		이 붙어 있는 클래스로 객체를 생성해서 관리된다. 
+	 -->
 	<context:component-scan base-package="com.gura.spring04" />
 	
 	

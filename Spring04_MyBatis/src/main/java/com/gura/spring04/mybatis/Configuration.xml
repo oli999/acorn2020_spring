@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	
+	<typeAliases>
+		<typeAlias type="com.gura.spring04.member.dto.MemberDto" alias="memberDto"/>
+	</typeAliases>
+	
 	<!-- 사용할 Mapper 목록 설정  -->
 	<mappers>
 		<mapper resource="com/gura/spring04/mybatis/MemberMapper.xml"/>

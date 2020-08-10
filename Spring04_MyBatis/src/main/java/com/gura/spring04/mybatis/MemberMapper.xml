@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 	<insert id="insert" 
-		parameterType="com.gura.spring04.member.dto.MemberDto">
+		parameterType="memberDto">
 		INSERT INTO member
 		(num, name, addr)
 		VALUES(member_seq.NEXTVAL, #{name}, #{addr})
 	</insert>
 	
-	<update id="update" parameterType="com.gura.spring04.member.dto.MemberDto">
+	<update id="update" parameterType="memberDto">
 		UPDATE member
 		SET name=#{name}, addr=#{addr}
 		WHERE num=#{num}
@@ -20,13 +20,13 @@
 	</delete>
 	
 	<select id="getData" parameterType="int" 
-		resultType="com.gura.spring04.member.dto.MemberDto">
+		resultType="memberDto">
 		SELECT num,name,addr
 		FROM member
 		WHERE num=#{num}
 	</select>
 	
-	<select id="getList" resultType="com.gura.spring04.member.dto.MemberDto">
+	<select id="getList" resultType="memberDto">
 		SELECT num,name,addr
 		FROM member
 		ORDER BY num ASC
