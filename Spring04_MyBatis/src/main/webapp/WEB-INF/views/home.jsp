@@ -22,8 +22,15 @@
 		<li><a href="json08.do">json 응답08</a></li>
 		<li><a href="xml01.do">xml 응답01</a></li>
 		<li><a href="xml02.do">xml 응답02</a></li>
+		<li><a href="xml03.do">xml 응답03</a></li>
 	</ul>
 	<button id="testBtn">ajax 테스트(콘솔확인)</button>
+	
+	<h2>파일 업로드 테스트</h2>
+	<form action="upload.do" method="post" enctype="multipart/form-data">
+		<input type="file" name="myFile"/>
+		<button type="submit">업로드</button>
+	</form>
 </div>
 <script src="resources/js/jquery-3.5.1.js"></script>
 <script>
