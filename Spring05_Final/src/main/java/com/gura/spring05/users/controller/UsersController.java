@@ -1,8 +1,10 @@
 package com.gura.spring05.users.controller;
 
+import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,6 +57,23 @@ public class UsersController {
 		//request 에 담는다. 
 		request.setAttribute("url", url);
 		return "users/loginform";
+	}
+	
+	@RequestMapping("/users/login")
+	public ModelAndView login(UsersDto dto, ModelAndView mView,
+			HttpSession session, HttpServletRequest request) {
+		//로그인후 가야하는 목적지 정보
+		String url=request.getParameter("url");
+		//목적지 정보도 미리 인코딩 해 놓는다.
+		String encodedUrl=URLEncoder.encode(url);
+		//view  페이지에 전달하기 위해 ModelAndView 객체에 담아준다. 
+		mView.addObject("url", url);
+		mView.addObject("encodedUrl", encodedUrl);
+		
+		//service 객체를 이용해서 로그인 관련 처리를 한다.
+		service.loginProcess(dto, mView, session);
+		mView.setViewName("users/login");
+		return mView;
 	}
 }
 

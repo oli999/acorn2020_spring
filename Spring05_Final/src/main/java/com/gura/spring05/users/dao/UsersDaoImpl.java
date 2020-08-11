@@ -27,6 +27,16 @@ public class UsersDaoImpl implements UsersDao{
 	public void insert(UsersDto dto) {
 		session.insert("users.insert", dto);
 	}
+
+	@Override
+	public boolean isValid(UsersDto dto) {
+		String id=session.selectOne("users.isValid", dto);
+		if(id==null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
 	
 }
 
