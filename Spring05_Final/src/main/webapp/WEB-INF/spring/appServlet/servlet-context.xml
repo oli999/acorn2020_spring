@@ -7,6 +7,24 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
+	<beans:bean id="dataSource" 
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<beans:property name="jndiName" value="java:comp/env/jdbc/myoracle"/>
+	</beans:bean>
+	
+	<beans:bean id="sessionFactory" 
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="configLocation"
+	value="classpath:com/gura/spring05/mybatis/Configuration.xml"/>
+	</beans:bean>
+	
+	<beans:bean class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg name="sqlSessionFactory" 
+			ref="sessionFactory"/>
+	</beans:bean>
+	
+
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
