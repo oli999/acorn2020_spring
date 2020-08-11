@@ -2,6 +2,8 @@ package com.gura.spring05.users.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +43,18 @@ public class UsersController {
 		// view 페이지로 forward 이동해서 응답하기 
 		mView.setViewName("users/signup");
 		return mView;
+	}
+	@RequestMapping("/users/loginform")
+	public String loginform(HttpServletRequest request) {
+		// url 파라미터가 넘어오는지 읽어와 보기 
+		String url=request.getParameter("url");
+		if(url==null){//목적지 정보가 없다면
+			String cPath=request.getContextPath();
+			url=cPath+"/home.do"; //로그인후 인덱스 페이지로 가도록 하기 위해 
+		}
+		//request 에 담는다. 
+		request.setAttribute("url", url);
+		return "users/loginform";
 	}
 }
 
