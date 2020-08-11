@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gura.spring05.users.dao.UsersDao;
+import com.gura.spring05.users.dto.UsersDto;
 
 @Service
 public class UsersServiceImpl implements UsersService{
@@ -21,6 +22,12 @@ public class UsersServiceImpl implements UsersService{
 		Map<String, Object> map=new HashMap<>();
 		map.put("isExist", isExist);
 		return map;
+	}
+
+	@Override
+	public void addUser(UsersDto dto) {
+		//dao  객체를 이용해서 새로운 사용자 정보를 DB 에 저장하기 
+		dao.insert(dto);
 	}
 	
 }

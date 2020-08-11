@@ -7,4 +7,13 @@
 		FROM users
 		WHERE id=#{inputId}
 	</select>
+	<insert id="insert" parameterType="usersDto">
+		INSERT INTO users
+		(id, pwd, email, regdate)
+		VALUES(#{id}, #{pwd}, #{email}, SYSDATE)
+	</insert>
 </mapper>
+
+
+
+
