@@ -15,13 +15,13 @@ public class FileTestController {
 	// <input type="file" name="myFile"/>  하나만 전송되는 경우 
 	@RequestMapping("/upload")
 	public String upload(@RequestParam MultipartFile myFile,
-			HttpServletRequest request) {
+			HttpServletRequest request,@RequestParam String title) {
 		//원본 파일명
 		String orgFileName=myFile.getOriginalFilename();
 		//파일의 크기
 		long fileSize=myFile.getSize();
 		
-		// webapp/upload 폴더 까지의 실제 경로
+		// webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)
 		String realPath=request.getServletContext().getRealPath("/upload");
 		//저장할 파일의 상세 경로
 		String filePath=realPath+File.separator;
@@ -44,6 +44,7 @@ public class FileTestController {
 		request.setAttribute("orgFileName", orgFileName);
 		request.setAttribute("saveFileName", saveFileName);
 		request.setAttribute("fileSize", fileSize);
+		request.setAttribute("title", title);
 		return "upload";
 	}
 }
