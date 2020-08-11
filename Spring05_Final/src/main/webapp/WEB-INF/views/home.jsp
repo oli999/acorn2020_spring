@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>/views/home.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 </head>
 <body>
 <div class="container">
@@ -15,7 +16,7 @@
 			<a href="${pageContext.request.contextPath }/users/signup_form.do">회원가입</a>
 		</c:when>
 		<c:otherwise>
-			<strong>${id }</strong>님 로그인중...
+			<a href="${pageContext.request.contextPath }/users/private/info.do"><strong>${id }</strong></a> 님 로그인중...
 			<a href="${pageContext.request.contextPath }/users/logout.do">로그아웃</a>
 		</c:otherwise>
 	</c:choose>

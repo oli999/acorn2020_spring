@@ -17,6 +17,14 @@
 		FROM users
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
+	
+	<select id="getData" parameterType="string"
+		resultType="usersDto">
+		SELECT id,pwd,email,profile,
+			TO_CHAR(regdate, 'YY.MM.DD HH24"시"MM"분"') AS regdate
+		FROM users
+		WHERE id=#{id}	
+	</select>
 </mapper>
 
 
