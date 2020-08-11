@@ -1,5 +1,7 @@
 package com.gura.spring05.users.service;
 
-public interface UsersService {
+import java.util.Map;
 
+public interface UsersService {
+	public Map<String, Object> isExistId(String inputId);
 }
