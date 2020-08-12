@@ -48,7 +48,7 @@
 	function deleteConfirm(){
 		var isDelete=confirm("${id} 회원님 탈퇴 하시겠습니까?");
 		if(isDelete){
-			location.href="delete.do";
+			location.href="${pageContext.request.contextPath }/users/private/delete.do?id=${id}";
 		}
 	}
 </script>

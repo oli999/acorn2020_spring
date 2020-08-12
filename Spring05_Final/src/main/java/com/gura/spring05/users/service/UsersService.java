@@ -14,6 +14,7 @@ public interface UsersService {
 	public void loginProcess(UsersDto dto, ModelAndView mView,
 			HttpSession session);
 	public void getInfo(HttpSession session, ModelAndView mView);
+	public void deleteUser(HttpSession session);
 }
 
 

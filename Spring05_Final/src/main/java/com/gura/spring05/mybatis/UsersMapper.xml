@@ -25,6 +25,11 @@
 		FROM users
 		WHERE id=#{id}	
 	</select>
+	
+	<delete id="delete" parameterType="string">
+		DELETE FROM users
+		WHERE id=#{id}
+	</delete>
 </mapper>
 
 

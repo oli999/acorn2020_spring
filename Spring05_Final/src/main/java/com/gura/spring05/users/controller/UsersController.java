@@ -89,6 +89,15 @@ public class UsersController {
 		mView.setViewName("users/private/info");
 		return mView;
 	}
+	@RequestMapping("/users/private/delete")
+	public ModelAndView delete(HttpServletRequest request,
+			ModelAndView mView) {
+		//서비스를 이용해서 사용자 정보를 삭제하고
+		service.deleteUser(request.getSession());
+		//view 페이지로 forward 이동해서 응답
+		mView.setViewName("users/private/delete");
+		return mView;
+	}
 }
 
 
