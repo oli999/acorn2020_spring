@@ -9,4 +9,5 @@ public interface UsersDao {
 	public UsersDto getData(String id);
 	public void delete(String id);
 	public void update(UsersDto dto);
+	public boolean updatePwd(UsersDto dto);
 }

@@ -117,7 +117,9 @@ public class UsersServiceImpl implements UsersService{
 		String id=(String)session.getAttribute("id");
 		dto.setId(id);
 		//dao 를 이용해서 비밀번호를 수정한다 (실패 가능성 있음)
-		
+		boolean isSuccess=dao.updatePwd(dto);
+		//mView 객체에 성공 여부를 담는다.
+		mView.addObject("isSuccess", isSuccess);
 	}
 	
 }
