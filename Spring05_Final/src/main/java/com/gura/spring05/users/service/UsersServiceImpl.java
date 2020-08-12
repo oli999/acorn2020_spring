@@ -111,6 +111,14 @@ public class UsersServiceImpl implements UsersService{
 		//dao 를 이용해서 수정반영하기 
 		dao.update(dto);
 	}
+
+	@Override
+	public void updateUserPwd(HttpSession session, UsersDto dto, ModelAndView mView) {
+		String id=(String)session.getAttribute("id");
+		dto.setId(id);
+		//dao 를 이용해서 비밀번호를 수정한다 (실패 가능성 있음)
+		
+	}
 	
 }
 

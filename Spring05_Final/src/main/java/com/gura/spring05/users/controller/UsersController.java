@@ -130,6 +130,21 @@ public class UsersController {
 		mView.setViewName("redirect:/users/private/info.do");
 		return mView;
 	}
+	
+	@RequestMapping("/users/private/pwd_updateform")
+	public ModelAndView pwdUpdateform(ModelAndView mView) {
+		
+		mView.setViewName("users/private/pwd_updateform");
+		return mView;
+	}
+	
+	@RequestMapping("/users/private/pwd_update")
+	public ModelAndView pwdUpdate(ModelAndView mView,
+			UsersDto dto, HttpServletRequest request) {
+		
+		mView.setViewName("users/private/update");
+		return mView;
+	}
 }
 
 
