@@ -8,4 +8,5 @@ public interface UsersDao {
 	public boolean isValid(UsersDto dto);
 	public UsersDto getData(String id);
 	public void delete(String id);
+	public void update(UsersDto dto);
 }

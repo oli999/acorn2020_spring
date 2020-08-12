@@ -101,6 +101,16 @@ public class UsersServiceImpl implements UsersService{
 		
 		return map;
 	}
+
+	@Override
+	public void updateUser(HttpSession session, UsersDto dto) {
+		//로그인된 아이디를 읽어와서 
+		String id=(String)session.getAttribute("id");
+		//UsersDto 에 담고 
+		dto.setId(id);
+		//dao 를 이용해서 수정반영하기 
+		dao.update(dto);
+	}
 	
 }
 

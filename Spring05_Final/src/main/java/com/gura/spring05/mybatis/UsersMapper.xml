@@ -30,6 +30,12 @@
 		DELETE FROM users
 		WHERE id=#{id}
 	</delete>
+	
+	<update id="update" parameterType="usersDto">
+		UPDATE users
+		SET email=#{email},profile=#{profile}
+		WHERE id=#{id}
+	</update>
 </mapper>
 
 
