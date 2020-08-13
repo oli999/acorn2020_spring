@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,6 +33,13 @@ public class UsersServiceImpl implements UsersService{
 
 	@Override
 	public void addUser(UsersDto dto) {
+		//dto 객체에 비밀번호를 암호화 해서 넣어준다.
+		String inputPwd=dto.getPwd(); //회원가입 form 에 입력한 비밀번호
+		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+		String encodedPwd=encoder.encode(inputPwd); //암호화된 비밀번호
+		//암호화된 비밀번호를 dto 객체에 다시 넣어준다. 
+		dto.setPwd(encodedPwd);
+		
 		//dao  객체를 이용해서 새로운 사용자 정보를 DB 에 저장하기 
 		dao.insert(dto);
 	}
