@@ -24,6 +24,7 @@
 	<p>Spring Framework 동작중 ...</p>
 	<ul>
 		<li><a href="file/list.do">자료실 목록 보기</a></li>
+		<li><a href="cafe/list.do">카페글 목록 보기</a></li>
 	</ul>
 </div>
 </body>
