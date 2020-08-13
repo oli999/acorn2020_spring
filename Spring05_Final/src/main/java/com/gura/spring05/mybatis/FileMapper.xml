@@ -41,6 +41,13 @@
 			</when>
 		</choose>		
 	</select>
+	
+	<insert id="insert" parameterType="fileDto">
+		INSERT INTO board_file
+		(num, writer, title, orgFileName, saveFileName, fileSize, regdate)
+		VALUES(board_file_seq.NEXTVAL, #{writer}, #{title}, 
+			#{orgFileName}, #{saveFileName}, #{fileSize}, SYSDATE)
+	</insert>
 </mapper>
 
 

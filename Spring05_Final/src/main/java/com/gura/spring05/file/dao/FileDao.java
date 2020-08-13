@@ -7,4 +7,5 @@ import com.gura.spring05.file.dto.FileDto;
 public interface FileDao {
 	public List<FileDto> getList(FileDto dto);
 	public int getCount(FileDto dto);
+	public void insert(FileDto dto);
 }
