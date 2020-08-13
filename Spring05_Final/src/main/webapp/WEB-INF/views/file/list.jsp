@@ -6,12 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/file/list.jsp</title>
+<title>/file/list.do</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 </head>
 <body>
 <div class="container">
-	<a href="private/upload_form.jsp">파일 업로드</a>
+	<a href="private/upload_form.do">파일 업로드</a>
 	<h1>파일 목록입니다.</h1>
 	<table class="table table-striped table-sm">
 		<thead class="thead-dark">
@@ -31,12 +31,12 @@
 				<td>${tmp.num }</td>
 				<td>${tmp.writer }</td>
 				<td>${tmp.title }</td>
-				<td><a href="download.jsp?num=${tmp.num }">${tmp.orgFileName }</a></td>
+				<td><a href="download.do?num=${tmp.num }">${tmp.orgFileName }</a></td>
 				<td><fmt:formatNumber value="${tmp.fileSize }" pattern="#,###"/> byte</td>
 				<td>${tmp.regdate }</td>
 				<td>
 					<c:if test="${tmp.writer eq id }">
-						<a href="private/delete.jsp?num=${tmp.num }">삭제</a>
+						<a href="private/delete.do?num=${tmp.num }">삭제</a>
 					</c:if>
 				</td>
 			</tr>
@@ -46,25 +46,25 @@
 	<div class="page-display">
 		<ul class="pagination pagination-sm">
 		<c:if test="${startPageNum ne 1 }">
-			<li class="page-item"><a class="page-link" href="list.jsp?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a></li>
+			<li class="page-item"><a class="page-link" href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a></li>
 		</c:if>
 		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 			<c:choose>
 				<c:when test="${i eq pageNum }">
-					<li class="page-item active"><a class="page-link" href="list.jsp?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a></li>
+					<li class="page-item active"><a class="page-link" href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a></li>
 				</c:when>
 				<c:otherwise>
-					<li class="page-item"><a class="page-link" href="list.jsp?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a></li>
+					<li class="page-item"><a class="page-link" href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a></li>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${endPageNum lt totalPageCount }">
-			<li class="page-item"><a class="page-link" href="list.jsp?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">Next</a></li>
+			<li class="page-item"><a class="page-link" href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">Next</a></li>
 		</c:if>
 		</ul>
 	</div>
 	<hr style="clear:left;"/>
-	<form action="list.jsp" method="get">
+	<form action="list.do" method="get">
 		<label for="condition">검색조건</label>
 		<select name="condition" id="condition">
 			<option value="title_filename" <c:if test="${condition eq 'title_filename' }">selected</c:if>>제목+파일명</option>
