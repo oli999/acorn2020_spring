@@ -54,6 +54,11 @@
 		FROM board_file
 		WHERE num=#{num}
 	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_file
+		WHERE num=#{num}
+	</delete>
 </mapper>
 
 
