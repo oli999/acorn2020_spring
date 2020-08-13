@@ -35,7 +35,7 @@
 	<update id="updatePwd" parameterType="usersDto">
 		UPDATE users
 		SET pwd=#{newPwd}
-		WHERE id=#{id} AND pwd=#{pwd}
+		WHERE id=#{id}
 	</update>
 </mapper>
 
