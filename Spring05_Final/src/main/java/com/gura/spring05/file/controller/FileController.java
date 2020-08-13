@@ -51,7 +51,8 @@ public class FileController {
 		//mView 에 다운로드 할 파일의 정보를 담고 
 		fileService.getFileData(num, mView);
 		//view 페이지로 이동해서 다운로드 시켜준다. 
-		mView.setViewName("file/download");
+		// @Component("fileDownView") 가 붙어있는 AbstractView 객체를 찾아간다. 
+		mView.setViewName("fileDownView");
 		return mView;
 	}
 }
