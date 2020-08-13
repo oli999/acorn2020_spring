@@ -29,6 +29,11 @@ public class FileDaoImpl implements FileDao{
 	public void insert(FileDto dto) {
 		session.insert("file.insert", dto);
 	}
+	//인자로 전달되는 번호에 해당하는 파일 정보를 리턴하는 메소드 
+	@Override
+	public FileDto getData(int num) {
+		return session.selectOne("file.getData", num);
+	}
 	
 }
 

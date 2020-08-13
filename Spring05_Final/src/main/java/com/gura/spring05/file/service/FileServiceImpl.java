@@ -139,6 +139,14 @@ public class FileServiceImpl implements FileService{
 		//view 페이지에서 사용할 모델 담기 
 		mView.addObject("dto", dto);
 	}
+
+	@Override
+	public void getFileData(int num, ModelAndView mView) {
+		//fileDao 를 이용해서 파일 정보를 얻어온 다음
+		FileDto dto=fileDao.getData(num);
+		//mView 객체에 담는다.
+		mView.addObject("dto", dto);
+	}
 	
 }
 

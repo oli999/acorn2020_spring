@@ -48,6 +48,12 @@
 		VALUES(board_file_seq.NEXTVAL, #{writer}, #{title}, 
 			#{orgFileName}, #{saveFileName}, #{fileSize}, SYSDATE)
 	</insert>
+	
+	<select id="getData" parameterType="int" resultType="fileDto">
+		SELECT num,writer,title,orgFileName,saveFileName,fileSize,regdate
+		FROM board_file
+		WHERE num=#{num}
+	</select>
 </mapper>
 
 

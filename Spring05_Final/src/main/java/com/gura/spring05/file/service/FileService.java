@@ -10,4 +10,10 @@ public interface FileService {
 	public void getList(HttpServletRequest request);
 	public void saveFile(FileDto dto, ModelAndView mView,
 			HttpServletRequest request);
+	public void getFileData(int num, ModelAndView mView);
 }
+
+
+
+
+
