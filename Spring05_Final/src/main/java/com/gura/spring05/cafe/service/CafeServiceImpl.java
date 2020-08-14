@@ -136,6 +136,11 @@ public class CafeServiceImpl implements CafeService{
 		//글 조회수 올리기
 		cafeDao.addViewCount(num);
 	}
+
+	@Override
+	public void saveContent(CafeDto dto) {
+		cafeDao.insert(dto);
+	}
 	
 }
 

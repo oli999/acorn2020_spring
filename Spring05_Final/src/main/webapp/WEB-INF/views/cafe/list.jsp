@@ -12,8 +12,8 @@
 <div class="container">
 	<a href="private/insertform.do">새글 작성</a>
 	<h1>글 목록 입니다.</h1>
-	<table>
-		<thead>
+	<table class="table table-striped table-sm">
+		<thead class="thead-dark">
 			<tr>
 				<th>글번호</th>
 				<th>작성자</th>
@@ -30,11 +30,6 @@
 				<td><a href="detail.do?num=${tmp.num }&condition=${condition }&keyword=${encodedK }">${tmp.title }</a></td>
 				<td>${tmp.viewCount }</td>
 				<td>${tmp.regdate }</td>
-				<td>
-					<c:if test="${tmp.writer eq id }">
-						<a href="private/delete.do?num=${tmp.num }">삭제</a>
-					</c:if>
-				</td>
 			</tr>
 		</c:forEach>		
 		</tbody>

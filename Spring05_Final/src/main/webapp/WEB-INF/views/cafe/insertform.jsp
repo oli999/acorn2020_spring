@@ -18,7 +18,7 @@
 <body>
 <div class="container">
 	<h1>새글 작성 양식 입니다.</h1>
-	<form action="insert.jsp" method="post">
+	<form action="insert.do" method="post">
 		<div class="form-group">
 			<label for="writer">작성자</label>
 			<input class="form-control" type="text" value="${id }" disabled/>
