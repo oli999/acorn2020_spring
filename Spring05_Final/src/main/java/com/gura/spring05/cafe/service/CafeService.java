@@ -4,4 +4,5 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface CafeService {
 	public void getList(HttpServletRequest request);
+	public void getDetail(HttpServletRequest request);
 }
