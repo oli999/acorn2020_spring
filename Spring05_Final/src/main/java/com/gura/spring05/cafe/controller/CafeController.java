@@ -57,10 +57,17 @@ public class CafeController {
 		mView.setViewName("cafe/updateform");
 		return mView;
 	}
-	@RequestMapping("/cafe/private/update")
+	@RequestMapping(value="/cafe/private/update", method=RequestMethod.POST)
 	public ModelAndView update(CafeDto dto, ModelAndView mView) {
 		cafeService.updateContent(dto);
 		mView.setViewName("cafe/update");
+		return mView;
+	}
+	@RequestMapping()
+	public ModelAndView delete(int num, HttpServletRequest request,
+			ModelAndView mView) {
+		cafeService.deleteContent(num, request);
+		mView.setViewName("redirect:/cafe/list.do");
 		return mView;
 	}
 	

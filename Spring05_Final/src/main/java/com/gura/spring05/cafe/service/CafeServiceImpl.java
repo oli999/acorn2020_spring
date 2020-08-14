@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.gura.spring05.cafe.dao.CafeDao;
 import com.gura.spring05.cafe.dto.CafeDto;
+import com.gura.spring05.exception.NotDeleteException;
 import com.gura.spring05.file.dto.FileDto;
 
 @Service
@@ -145,6 +146,19 @@ public class CafeServiceImpl implements CafeService{
 	@Override
 	public void updateContent(CafeDto dto) {
 		cafeDao.update(dto);
+	}
+
+	@Override
+	public void deleteContent(int num, HttpServletRequest request) {
+		//1. 삭제할 글의 정보를 읽어온다.
+		CafeDto dto=cafeDao.getData(num);
+		//2. 본인이 작성한 글이 아닌경우 에러 처리를한다 (예외를 발생시킨다)
+		String id=(String)request.getSession().getAttribute("id");
+		//만일 로그인된 아이디와 글 작성자가 다르면
+		if(!id.equals(dto.getWriter())) {
+			throw new NotDeleteException("남의 글 지우기 없기!");
+		}		// TODO Auto-generated method stub
+		cafeDao.delete(num);
 	}
 	
 }
