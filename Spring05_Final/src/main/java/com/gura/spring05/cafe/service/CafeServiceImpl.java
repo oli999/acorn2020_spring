@@ -141,6 +141,11 @@ public class CafeServiceImpl implements CafeService{
 	public void saveContent(CafeDto dto) {
 		cafeDao.insert(dto);
 	}
+
+	@Override
+	public void updateContent(CafeDto dto) {
+		cafeDao.update(dto);
+	}
 	
 }
 
