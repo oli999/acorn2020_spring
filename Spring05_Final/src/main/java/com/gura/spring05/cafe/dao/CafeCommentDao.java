@@ -15,6 +15,8 @@ public interface CafeCommentDao {
 	public int getSequence();
 	//댓글 수정
 	public void update(CafeCommentDto dto);
+	//댓글 하나의 정보를 리턴하는 메소드
+	public CafeCommentDto getData(int num);
 }
 
 
