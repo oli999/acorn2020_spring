@@ -172,7 +172,7 @@ public class CafeServiceImpl implements CafeService{
 	@Override
 	public void saveComment(HttpServletRequest request) {
 		//댓글 작성자
-		String writer=(String)request.getAttribute("id");
+		String writer=(String)request.getSession().getAttribute("id");
 		//폼 전송되는 댓글의 정보 얻어내기
 		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
 		String target_id=request.getParameter("target_id");

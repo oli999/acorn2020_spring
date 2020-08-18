@@ -115,7 +115,7 @@
 	
 	<div class="comment_form">
 		<!-- 원글에 댓글을 작성하는 form -->
-		<form action="comment_insert.do" method="post">
+		<form action="private/comment_insert.do" method="post">
 			<!-- 원글의 글번호가 ref_group 번호가 된다. -->
 			<input type="hidden" name="ref_group" value="${dto.num }"/>
 			<!-- 원글의 작성자가 댓글의 수신자가 된다. -->
