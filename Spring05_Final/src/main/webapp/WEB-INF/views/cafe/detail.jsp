@@ -13,6 +13,13 @@
 		width: 100%;
 		border: 1px dotted #cecece;
 	}
+	/* 댓글 프로필 이미지를 작은 원형으로 만든다. */
+	#profileImage{
+		width: 50px;
+		height: 50px;
+		border: 1px solid #cecece;
+		border-radius: 50%;
+	}
 </style>
 </head>
 <body>
@@ -77,6 +84,46 @@
 			삭제
 		</a>			
 	</c:if>
+	
+	<!-- 댓글 목록 -->
+	<div class="comments">
+		<ul>
+			<c:forEach var="tmp" items="${commentList }">
+				<li>
+					<dl>
+						<dt>
+							<c:choose>
+								<c:when test="${empty tmp.profile }">
+									<svg id="profileImage"  width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+			  							<path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+									</svg>
+								</c:when>
+								<c:otherwise>
+									<img id="profileImage" 
+										src="${pageContext.request.contextPath }${tmp.profile }"/>
+								</c:otherwise>
+							</c:choose>
+						</dt>
+						<dd>
+							<pre>${tmp.content }</pre>
+						</dd>
+					</dl>
+				</li>
+			</c:forEach>
+		</ul>
+	</div>
+	
+	<div class="comment_form">
+		<!-- 원글에 댓글을 작성하는 form -->
+		<form action="comment_insert.do" method="post">
+			<!-- 원글의 글번호가 ref_group 번호가 된다. -->
+			<input type="hidden" name="ref_group" value="${dto.num }"/>
+			<!-- 원글의 작성자가 댓글의 수신자가 된다. -->
+			<input type="hidden" name="target_id" value="${dto.writer }"/>
+			<textarea name="content"></textarea>
+			<button type="submit">등록</button>
+		</form>
+	</div>
 </div>
 <script>
 	function deleteConfirm(){

@@ -63,7 +63,7 @@ public class CafeController {
 		mView.setViewName("cafe/update");
 		return mView;
 	}
-	@RequestMapping()
+	@RequestMapping("/cafe/private/delete")
 	public ModelAndView delete(int num, HttpServletRequest request,
 			ModelAndView mView) {
 		cafeService.deleteContent(num, request);

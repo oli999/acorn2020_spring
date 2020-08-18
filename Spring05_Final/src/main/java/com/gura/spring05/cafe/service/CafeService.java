@@ -10,4 +10,5 @@ public interface CafeService {
 	public void saveContent(CafeDto dto);
 	public void updateContent(CafeDto dto);
 	public void deleteContent(int num, HttpServletRequest request);
+	public void saveComment(HttpServletRequest request);//댓글 저장 
 }
