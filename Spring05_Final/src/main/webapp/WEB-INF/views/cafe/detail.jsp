@@ -177,7 +177,7 @@
 										@<i>${tmp.target_id }</i>
 									</c:if>
 									<span>${tmp.regdate }</span>
-									<a href="javascript:" class="reply-link">답글</a>
+									<a data-num="${tmp.num }" href="javascript:" class="reply-link">답글</a>
 									<c:if test="${tmp.writer eq id }">
 										| <a data-num="${tmp.num }" href="javascript:" class="comment-update-link">수정</a>
 										| <a data-num="${tmp.num }" href="javascript:" class="comment-delete-link">삭제</a>
@@ -266,8 +266,11 @@
 					"url=${pageContext.request.contextPath }/cafe/detail.do?num=${dto.num}";
 		}
 		
-		$(this).parent().parent().parent().find(".re-insert-form")
+		var selector="#comment"+$(this).attr("data-num");
+		$(selector)
+		.find(".re-insert-form")
 		.slideToggle();
+		
 		if($(this).text()=="답글"){//링크 text를 답글일때 클릭하면 
 			$(this).text("취소");//취소로 바꾸고 
 		}else{//취소일때 크릭하면 
