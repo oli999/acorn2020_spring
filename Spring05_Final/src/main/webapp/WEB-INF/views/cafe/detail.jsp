@@ -228,7 +228,12 @@
 <script>
 	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
 	$(".comment-update-link").on("click", function(){
+		/*
+			click 이벤트가 일어난 댓글 수정 링크에 저장된 data-num 속성의 값을 
+			읽어와서 id 선택자를 구성한다.
+		*/
 		var selector="#comment"+$(this).attr("data-num");
+		//구성된 id  선택자를 이용해서 원하는 li 요소에서 .update-form 을 찾아서 동작하기
 		$(selector)
 		.find(".update-form")
 		.slideToggle();
