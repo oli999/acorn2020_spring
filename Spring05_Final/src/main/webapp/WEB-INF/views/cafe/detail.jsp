@@ -80,6 +80,15 @@
 	.contents img{
 		max-width: 100%;
 	}
+	.loader{
+		position: fixed; /* 좌하단 고정된 위치에 배치 하기 위해 */
+		width: 100%;
+		left: 0;
+		bottom: 0;
+		text-align: center; /* 이미지를 좌우로 가운데  정렬 */
+		z-index: 1000;
+		display: none; /* 일단 숨겨 놓기 */
+	}
 </style>
 </head>
 <body>
@@ -223,11 +232,14 @@
 		<button type="submit">등록</button>
 	</form>
 </div>
+<div class="loader">
+	<img src="${pageContext.request.contextPath }/resources/images/ajax-loader.gif"/>
+</div>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 <script>
 	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
-	$(".comment-update-link").on("click", function(){
+	$(document).on("click",".comment-update-link", function(){
 		/*
 			click 이벤트가 일어난 댓글 수정 링크에 저장된 data-num 속성의 값을 
 			읽어와서 id 선택자를 구성한다.
@@ -238,20 +250,25 @@
 		.find(".update-form")
 		.slideToggle();
 	});
-	//로딩한 jquery.form.min.js jquery플러그인의 기능을 이용해서 댓글 수정폼을 
-	//ajax 요청을 통해 전송하고 응답받기
-	$(".update-form").ajaxForm(function(data){
-		//console.log(data);
-		//수정이 일어난 댓글의 li 요소를 선택해서 원하는 작업을 한다.
-		var selector="#comment"+data.num; //"#comment6" 형식의 선택자 구성
-		
-		//댓글 수정 폼을 안보이게 한다. 
-		$(selector).find(".update-form").slideUp();
-		//pre 요소에 출력된 내용 수정하기
-		$(selector).find("pre").text(data.content);
+	
+	$(document).on("submit", ".update-form", function(){
+		//이벤트가 일어난 폼을 ajax로 전송되도록 하고 
+		$(this).ajaxSubmit(function(data){
+			//console.log(data);
+			//수정이 일어난 댓글의 li 요소를 선택해서 원하는 작업을 한다.
+			var selector="#comment"+data.num; //"#comment6" 형식의 선택자 구성
+			
+			//댓글 수정 폼을 안보이게 한다. 
+			$(selector).find(".update-form").slideUp();
+			//pre 요소에 출력된 내용 수정하기
+			$(selector).find("pre").text(data.content);
+		});
+		//폼 전송을 막아준다.
+		return false;
 	});
 	
-	$(".comment-delete-link").on("click", function(){
+	
+	$(document).on("click",".comment-delete-link", function(){
 		//삭제할 글번호 
 		var num=$(this).attr("data-num");
 		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
@@ -262,7 +279,7 @@
 	});
 
 	//답글 달기 링크를 클릭했을때 실행할 함수 등록
-	$(".reply-link").on("click", function(){
+	$(document).on("click",".reply-link", function(){
 		//로그인 여부
 		var isLogin=${not empty id};
 		if(isLogin == false){
@@ -283,7 +300,7 @@
 		}	
 	});
 
-	$(".insert-form").on("submit", function(){
+	$(document).on("submit",".insert-form", function(){
 		//로그인 여부
 		var isLogin=${not empty id};
 		if(isLogin == false){
@@ -301,6 +318,45 @@
 			location.href="delete.do?num=${dto.num}";
 		}
 	}
+	
+	//페이지가 처음 로딩될때 1page 를 보여준다고 가정
+	var currentPage=1;
+	//전체 페이지의 수를 javascript 변수에 담아준다.
+	var totalPageCount=${totalPageCount};
+	
+	//웹브라우저에 scoll 이벤트가 일어 났을때 실행할 함수 등록 
+	$(window).on("scroll", function(){
+		if(currentPage == totalPageCount){//만일 마지막 페이지 이면 
+			return; //함수를 여기서 종료한다. 
+		}
+		//위쪽으로 스크롤된 길이 구하기
+		var scrollTop=$(window).scrollTop();
+		//window 의 높이
+		var windowHeight=$(window).height();
+		//document(문서)의 높이
+		var documentHeight=$(document).height();
+		//바닥까지 스크롤 되었는지 여부
+		var isBottom = scrollTop+windowHeight + 10 >= documentHeight;
+		if(isBottom){//만일 바닥까지 스크롤 했다면...
+			//로딩 이미지 띄우기
+			$(".loader").show();
+			
+			currentPage++; //페이지를 1 증가 시키고 
+			//해당 페이지의 내용을 ajax  요청을 해서 받아온다. 
+			$.ajax({
+				url:"ajax_comment_list.do",
+				method:"get",
+				data:{pageNum:currentPage, ref_group:${dto.num}},
+				success:function(data){
+					console.log(data);
+					//data 가 html 마크업 형태의 문자열 
+					$(".comments ul").append(data);
+					//로딩 이미지를 숨긴다. 
+					$(".loader").hide();
+				}
+			});
+		}
+	});		
 </script>
 </body>
 </html>
