@@ -33,7 +33,8 @@
 		margin-left: 50px;
 	}
 	.comment_form textarea, .comment_form button, 
-		.comment-insert-form textarea, .comment-insert-form button{
+		.comment-insert-form textarea, .comment-insert-form button,
+		.comment-update-form textarea, .comment-update-form button{
 		float: left;
 	}
 	.comments li{
@@ -42,11 +43,13 @@
 	.comments ul li{
 		border-top: 1px solid #888;
 	}
-	.comment_form textarea, .comment-insert-form textarea{
+	.comment_form textarea, .comment-insert-form textarea,
+		.comment-update-form textarea{
 		width: 85%;
 		height: 100px;
 	}
-	.comment_form button, .comment-insert-form button{
+	.comment_form button, .comment-insert-form button,
+		.comment-update-form button{
 		width: 15%;
 		height: 100px;
 	}
@@ -180,6 +183,7 @@
 									<span>${tmp.regdate }</span>
 									<a href="javascript:" class="reply_link">답글</a>
 									<c:if test="${tmp.writer eq id }">
+										| <a href="javascript:" class="comment-update-link">수정</a>
 										| <a href="javascript:deleteComment(${tmp.num })">삭제</a>
 									</c:if>
 								</dt>
@@ -198,6 +202,15 @@
 								<textarea name="content"></textarea>
 								<button type="submit">등록</button>
 							</form>
+							<!-- 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 -->
+							<c:if test="${tmp.writer eq id }">
+								<form class="comment-update-form" 
+									action="private/comment_update.do" method="post">
+									<input type="hidden" name="num" value="${tmp.num }"/>
+									<textarea name="content">${tmp.content }</textarea>
+									<button type="submit">수정</button>
+								</form>
+							</c:if>
 						</li>						
 					</c:otherwise>
 				</c:choose>
@@ -218,7 +231,19 @@
 	</div>
 </div>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 <script>
+	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
+	$(".comment-update-link").on("click", function(){
+		$(this).parent().parent().parent()
+		.find(".comment-update-form")
+		.slideToggle();
+	});
+	//로딩한 jquery.form.min.js jquery플러그인의 기능을 이용해서 댓글 수정폼을 
+	//ajax 요청을 통해 전송하고 응답받기
+	$(".comment-update-form").ajaxForm(function(data){
+		console.log(data);
+	});
 
 	function deleteComment(num){
 		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
