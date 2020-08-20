@@ -142,21 +142,36 @@ public class CafeServiceImpl implements CafeService{
 		
 		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
 		final int PAGE_ROW_COUNT=5;
+		final int PAGE_DISPLAY_COUNT=5;
 		
-		//보여줄 페이지의 번호
-		int pageNum=1;
-		
+		//전체 row 의 갯수를 읽어온다.
+		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
+		int totalRow=cafeCommentDao.getCount(num);
+
+		//보여줄 페이지의 번호(만일 pageNum 이 넘어오지 않으면 가장 마지막 페이지)
+		String strPageNum=request.getParameter("pageNum");
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=
+						(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		int pageNum=totalPageCount;
+		if(strPageNum!=null) {
+			pageNum=Integer.parseInt(strPageNum);
+		}
 		//보여줄 페이지 데이터의 시작 ResultSet row 번호
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
 		//보여줄 페이지 데이터의 끝 ResultSet row 번호
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
 		
-		//전체 row 의 갯수를 읽어온다.
-		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
-		int totalRow=cafeCommentDao.getCount(num);
-		//전체 페이지의 갯수 구하기
-		int totalPageCount=
-				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		
+		//시작 페이지 번호
+		int startPageNum=
+			1+((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+		//끝 페이지 번호
+		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
+		//끝 페이지 번호가 잘못된 값이라면 
+		if(totalPageCount < endPageNum){
+			endPageNum=totalPageCount; //보정해준다. 
+		}
 		
 		// CafeCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다.
 		CafeCommentDto commentDto=new CafeCommentDto();
@@ -170,6 +185,10 @@ public class CafeServiceImpl implements CafeService{
 		//request 에 담아준다.
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("totalPageCount", totalPageCount);
+		request.setAttribute("startPageNum", startPageNum);
+		request.setAttribute("endPageNum", endPageNum);
+		request.setAttribute("pageNum", pageNum);
+		
 	}
 
 	@Override
