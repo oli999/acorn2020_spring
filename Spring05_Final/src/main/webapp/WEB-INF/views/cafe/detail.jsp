@@ -154,6 +154,16 @@
 		</a>			
 	</c:if>
 	
+	<hr/>
+	<!-- 원글에 댓글을 작성하는 form -->
+	<form class="comment-form insert-form" action="private/comment_insert.do" method="post">
+		<!-- 원글의 글번호가 ref_group 번호가 된다. -->
+		<input type="hidden" name="ref_group" value="${dto.num }"/>
+		<!-- 원글의 작성자가 댓글의 수신자가 된다. -->
+		<input type="hidden" name="target_id" value="${dto.writer }"/>
+		<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다</c:if></textarea>
+		<button type="submit">등록</button>
+	</form>	
 	<!-- 댓글 목록 -->
 	<div class="comments">
 		<ul>
@@ -222,15 +232,6 @@
 			</c:forEach>
 		</ul>
 	</div>
-	<!-- 원글에 댓글을 작성하는 form -->
-	<form class="comment-form insert-form" action="private/comment_insert.do" method="post">
-		<!-- 원글의 글번호가 ref_group 번호가 된다. -->
-		<input type="hidden" name="ref_group" value="${dto.num }"/>
-		<!-- 원글의 작성자가 댓글의 수신자가 된다. -->
-		<input type="hidden" name="target_id" value="${dto.writer }"/>
-		<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다</c:if></textarea>
-		<button type="submit">등록</button>
-	</form>
 </div>
 <div class="loader">
 	<img src="${pageContext.request.contextPath }/resources/images/ajax-loader.gif"/>
@@ -323,6 +324,34 @@
 	var currentPage=1;
 	//전체 페이지의 수를 javascript 변수에 담아준다.
 	var totalPageCount=${totalPageCount};
+	
+	/*
+		페이지 로딩 시점에 document 의 높이가 window 의 실제 높이 보다 작고
+		전체 페이지의 갯수가(totalPageCount) 현재페이지(currentPage)
+		보다 크면 추가로 댓글을 받아오는 ajax 요청을 해야한다.
+	*/
+	var dH=$(document).height();//문서의 높이
+	var wH=window.screen.height;//window 의 높이
+	
+	if(dH < wH && totalPageCount > currentPage){
+		//로딩 이미지 띄우기
+		$(".loader").show();
+		
+		currentPage++; //페이지를 1 증가 시키고 
+		//해당 페이지의 내용을 ajax  요청을 해서 받아온다. 
+		$.ajax({
+			url:"ajax_comment_list.do",
+			method:"get",
+			data:{pageNum:currentPage, ref_group:${dto.num}},
+			success:function(data){
+				console.log(data);
+				//data 가 html 마크업 형태의 문자열 
+				$(".comments ul").append(data);
+				//로딩 이미지를 숨긴다. 
+				$(".loader").hide();
+			}
+		});		
+	}
 	
 	//웹브라우저에 scoll 이벤트가 일어 났을때 실행할 함수 등록 
 	$(window).on("scroll", function(){
