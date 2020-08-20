@@ -153,8 +153,11 @@ public class CafeServiceImpl implements CafeService{
 		//전체 페이지의 갯수 구하기
 		int totalPageCount=
 						(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		//일단 마지막 페이지의 댓글 목록을 보여주기로 하고 
 		int pageNum=totalPageCount;
+		//만일 페이지 번호가 넘어온다면
 		if(strPageNum!=null) {
+			//넘어온 페이지에 해당하는 댓글 목록을 보여주도록 한다. 
 			pageNum=Integer.parseInt(strPageNum);
 		}
 		//보여줄 페이지 데이터의 시작 ResultSet row 번호
