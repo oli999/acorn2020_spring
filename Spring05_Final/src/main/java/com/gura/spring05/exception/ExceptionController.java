@@ -1,6 +1,7 @@
 package com.gura.spring05.exception;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +22,16 @@ public class ExceptionController {
 		mView.addObject("exception", nde);
 		// /WEB-INF/views/error/info.jsp 페이지로 forward 이동 
 		mView.setViewName("error/info");
+		return mView;
+	}
+	/*  @Repository 어노테이션이 붙은 
+	 *  Dao 에서 DB 관련 작업을 하다가 예외가 발생하면 실행순서가 여기로 들어온다. 
+	 */
+	@ExceptionHandler(DataAccessException.class)
+	public ModelAndView dataAccess(DataAccessException dae) {
+		ModelAndView mView=new ModelAndView();
+		mView.addObject("exception", dae);
+		mView.setViewName("error/data_access");
 		return mView;
 	}
 }
