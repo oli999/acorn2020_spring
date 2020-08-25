@@ -1,6 +1,7 @@
 package com.gura.spring05.shop.service;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gura.spring05.exception.NoDeliveryException;
 import com.gura.spring05.shop.dao.OrderDao;
 import com.gura.spring05.shop.dao.ShopDao;
 import com.gura.spring05.shop.dto.OrderDto;
@@ -67,10 +69,24 @@ public class ShopServiceImpl implements ShopService{
 		dto2.setId(id); //누가
 		dto2.setCode(num); //어떤 상품을 
 		dto2.setAddr("강남구 삼원빌딩 5층");//어디로 배송할지
+		
+		//테스트로 예외를 발생 시켜 보기
+		Random ran=new Random();
+		int ranNum=ran.nextInt(3);//0 or 1 or 2 랜덤한 정수 발생 시키기
+		if(ranNum==0) {//만일 0 이 나오면 
+			throw new NoDeliveryException("배송 기사가 아퍼서 배송을 못해요!");
+		}
+		
 		orderDao.addOrder(dto2);
 	}
 	
 }
+
+
+
+
+
+
 
 
 
