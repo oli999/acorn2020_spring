@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/css/Step02_Transition2.html</title>
+<style>
+	.box{
+		width: 100px;
+		height: 100px;
+		background-color: #0f0;
+		border: 1px solid red;
+	}
+	#one{
+		transition: margin-left 5s linear;
+	}
+	#two{
+		transition: margin-left 5s ease-in;
+	}
+	#three{
+		transition: margin-left 5s ease-out;
+	}
+	#four{
+		transition: margin-left 5s ease-in-out;
+	}
+</style>
+</head>
+<body>
+<div class="box" id="one"></div>
+<div class="box" id="two"></div>
+<div class="box" id="three"></div>
+<div class="box" id="four"></div>
+<button id="startBtn">출발</button>
+<script src="../resources/js/jquery-3.5.1.js"></script>
+<script>
+	$("#startBtn").on("click", function(){
+		$(".box").css("margin-left", "700px");
+	});
+</script>
+</body>
+</html>
+
+
+

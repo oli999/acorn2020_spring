@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/css3/Step03_Transform.html</title>
+<style>
+	.box{
+		width: 100px;
+		height: 100px;
+		background-color: #0f0;
+		border: 1px solid red;
+		transition: transform 0.4s ease-out;
+	}
+	#one:hover{ 
+		/* x 축으로 평행이동 */
+		transform: translateX(50px);
+	}
+	#two:hover{
+	 	/* y 축으로 평행이동 */
+		transform: translateY(50px);
+	}
+	#three:hover{
+		/* 회전 */
+		transform: rotate(45deg);
+	}
+	#four:hover{
+		/* 확대 혹은 축소 비율 */
+		transform: scale(1.5);
+	}
+	#five:hover{
+		transform: translateX(50px) translateY(50px) rotate(45deg) scale(1.5);
+	}
+</style>
+</head>
+<body>
+<h1>transform 테스트</h1>
+<div class="box" id="one"></div>
+<div class="box" id="two"></div>
+<div class="box" id="three"></div>
+<div class="box" id="four"></div>
+<div class="box" id="five"></div>
+</body>
+</html>
+
+
+
+
+
+
