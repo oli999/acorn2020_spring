@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step04_Hexagon.html</title>
+	<style>
+	.wrapper{
+		perspective: 500px;
+		perspective-origin: 50% 50%;
+		margin-top: 200px;
+		border: 1px solid red;
+	}
+	.cube{
+		transform-style: preserve-3d;
+		transform-origin: 50% 50%;
+		position: relative;
+		width: 400px;
+		height: 400px;
+		margin: 0 auto; /* 가운데 정렬 */
+		transition: all 0.5s ease-out;
+		/* .cube > div 를 앞으로 밀기 전에 .cube 를 뒤로 200px 밀어 넣기 */
+		transform: translateZ(-346px);
+	}
+	.cube > div{
+		position: absolute;
+		width: 400px;
+		height: 400px;
+		opacity: 0.6; /* 투명도 */
+		background-color: #2e272f;
+	}
+	.cube img{
+		width: 400px;
+		height: 400px;
+	}
+	.cube > div:nth-child(1){
+		transform: translateZ(346px);
+	}
+	.cube > div:nth-child(2){
+		transform: rotateY(60deg) translateZ(346px);
+	}
+	.cube > div:nth-child(3){
+		transform: rotateY(120deg) translateZ(346px);
+	}
+	.cube > div:nth-child(4){
+		transform: rotateY(180deg) translateZ(346px);
+	}
+	.cube > div:nth-child(5){
+		transform: rotateY(240deg) translateZ(346px);
+	}
+	.cube > div:nth-child(6){
+		transform: rotateY(300deg) translateZ(346px);
+	}
+	.control{
+		/* 인라인 요소의 가운데 정렬 */
+		text-align: center;
+	}			
+	</style>
+</head>
+<body>
+<div class="wrapper">
+	<div class="cube">
+		<div><img src="../resources/images/image1.png"></div>
+		<div><img src="../resources/images/image2.png"></div>
+		<div><img src="../resources/images/image3.png"></div>
+		<div><img src="../resources/images/image4.png"></div>
+		<div><img src="../resources/images/image5.png"></div>
+		<div><img src="../resources/images/image6.png"></div>
+	</div>
+</div>
+<div class="control">
+	<button id="prevBtn">&larr;</button>
+	<button id="nextBtn">&rarr;</button>
+</div>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus, earum, debitis. Consectetur inventore quaerat aperiam nihil minima, vitae laudantium, ut animi illum blanditiis cum earum, fugiat nisi ipsam dolore possimus.</p>			
+<script src="../resources/js/jquery-3.5.1.js"></script>
+<script>
+	// y축 회전값을 관리할 변수를 만들고 0으로 초기화 
+	var rY=0;
+	
+	$("#prevBtn").click(function(){
+		rY += 60;
+		rotate();
+	});
+	$("#nextBtn").click(function(){
+		rY -= 60;
+		rotate();
+	});
+	
+	function rotate(){
+		$(".cube").css("transform","translateZ(-346px) rotateY("+rY+"deg)");
+	}
+	
+	// n 각형과 한변의 길이가 width 일때 몇도씩 돌면서 z 축방향으로 얼마만큼 평행이동하면 되는지 
+	// 에 대한 정보를 담고있는 object 를 리턴하는 함수 
+  	function getAngleNtz(n, width) {
+	    var angle = Math.round(360 / n);
+	    var tz = Math.round((width / 2) / Math.tan((angle * Math.PI) / (2 * 180)));
+	    var obj = {
+	      angle: angle,
+	      tz: tz
+	    };
+	    return obj;
+	 }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step04_Example2.html</title>
+	<style>
+		/* 3d transform 을 할 공간을 만든다. */
+		.wrapper{
+			perspective: 500px;
+			perspective-origin: 50% 50%;
+			width: 400px;
+			height: 400px;
+			margin: 0 auto;
+		}
+		/* 3d transform 을 할 아이템 설정을 한다. */
+		.target{
+			transform-style: preserve-3d;
+			transform-origin: 50% 50%;
+			position: relative;
+			transition: transform 0.4s ease-out;
+		}
+		/* div 두개를 겹쳐 놓는다. */
+		.target > div{
+			position: absolute;
+			width: 400px;
+			height: 400px;
+			border: 1px solid green;
+			/* 뒷면이 투과 되어서 보이게 할지 여부*/
+			backface-visibility: hidden; /* visible | hidden */
+		}
+		.front{
+			background-image: url("../resources/images/image1.png");
+		}
+		.back{
+			background-image: url("../resources/images/image2.png");
+			/* 뒷면 div 를 180 도 회전 시켜서 뒤집어 놓는다.  */
+			transform: rotateY(180deg);
+		}
+		.target:hover{
+			transform: rotateY(180deg);
+		}
+	</style>
+</head>
+<body>
+<h1>카드 뒤집기 예제</h1>
+<button id="rotateBtn">돌리기</button>	
+<div class="wrapper">
+	<div class="target">
+		<div class="front"></div>
+		<div class="back"></div>
+	</div>
+</div>	
+<script src="../resources/js/jquery-3.5.1.js"></script>
+<script>
+	//y축 회전값을 저장할 변수 만들고 0으로 초기화 
+	var rY=0;
+	
+	$("#rotateBtn").click(function(){
+		//rY 값 180 증가 시키기
+		rY += 180;
+		$(".target").css("transform","rotateY("+rY+"deg)");
+	});
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
