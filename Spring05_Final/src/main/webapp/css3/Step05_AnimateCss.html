@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/css/Step05_AnimateCss.html</title>
+<!-- animate css 로딩하기 -->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+<style>
+	.container{
+		width: 768px;
+		margin: 300px auto 0;
+	}
+	h1{
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+<div class="container">
+	<h1 class="animate__animated animate__zoomIn">Animate Me!</h1>
+	<button id="myBtn" class="animate__animated">마우스를 올려보셈</button>
+	<button id="yourBtn" class="animate__animated">마우스를 올려보셈</button>
+</div>
+<script src="../resources/js/jquery-3.5.1.js"></script>
+<script>
+	$("#myBtn").on("mouseover", function(){
+		//한번만 동작한다. 
+		$(this).addClass("animate__swing");
+	});
+	$("#yourBtn").on("mouseover", function(){
+		//여러번 동작한다.
+		$(this)
+		.addClass("animate__swing")
+		.one("animationend", function(){
+			$(this).removeClass("animate__swing");
+		});
+	});
+</script>
+</body>
+</html>
+
+
+
+
+
+

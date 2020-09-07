@@ -76,6 +76,8 @@
 <script>
 	// y축 회전값을 관리할 변수를 만들고 0으로 초기화 
 	var rY=0;
+	// 회전하게 할지에 대한 여부 
+	var isRotate=true;
 	
 	$("#prevBtn").click(function(){
 		rY += 60;
@@ -89,6 +91,24 @@
 	function rotate(){
 		$(".cube").css("transform","translateZ(-346px) rotateY("+rY+"deg)");
 	}
+	
+	$(".cube").on("mouseover", function(){
+		//회전하지 않도록 
+		isRotate=false;
+	});
+	$(".cube").on("mouseout", function(){
+		//회전 하도록
+		isRotate=true;
+	});
+	
+	//함수를 5초 마다 호출하기 
+	setInterval(function(){
+		if(!isRotate){//만일 회전 하지 않을거면
+			return;//함수를 여기서 끝내라
+		}
+		rY -= 60;
+		rotate();
+	}, 5000);
 	
 	// n 각형과 한변의 길이가 width 일때 몇도씩 돌면서 z 축방향으로 얼마만큼 평행이동하면 되는지 
 	// 에 대한 정보를 담고있는 object 를 리턴하는 함수 
