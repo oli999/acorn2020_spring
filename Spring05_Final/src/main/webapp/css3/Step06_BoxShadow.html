@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step06_BoxShadow.html</title>
+	<style>
+		.wrapper{
+			margin-top: 50px;
+			text-align: center;
+		}
+		.shadow1{
+			width: 200px;
+			/*	
+				[ 그림자 효과 ]
+				1. 수평 길이
+				2. 수직 길이
+				3. 흐릿하게 하는 반경
+				4. 퍼트리는 길이
+				5. 색상
+			*/
+			box-shadow: 10px 10px 10px 0 #04178f;
+		}
+		.box{
+			width: 200px;
+			height: 200px;
+			background-color: #f0f;
+			box-shadow: 10px 10px 10px 0 #04178f;
+		}
+		.box2{
+			width: 200px;
+			height: 200px;
+			background-color: #f0f;
+			/* 
+			  inset 은 안쪽 그림자
+			  - 안으로 들어가 있는듯한 느낌을 준다. 
+			*/
+			box-shadow: inset 10px 10px 10px 0 #04178f;
+		}
+		.box3{
+			width: 200px;
+			height: 200px;
+			background-color: #f0f;
+			box-shadow: 10px 10px 10px 0 #04178f;
+			/* 원형으로 만들어도 적용된다. */
+			border-radius: 50%;
+		}
+	</style>
+</head>
+<body>
+<div class="wrapper">
+	<img class="shadow1" src="../resources/images/1.jpg"/>
+</div>
+<div class="box"></div>
+<br/>
+<div class="box2"></div>
+<br/>
+<div class="box3"></div>	
+</body>
+</html>

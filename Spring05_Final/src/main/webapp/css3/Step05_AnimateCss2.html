@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/css/Step05_AnimateCss2.html</title>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+</head>
+<body>
+<input type="text" id="inputMsg" placeholder="메세지입력"/>
+<button id="addBtn">추가</button>
+<ul id="msgList">
+	
+</ul>
+<script src="../resources/js/jquery-3.5.1.js"></script>
+<script>
+	$("#addBtn").click(function(){
+		//삭제버튼
+		var $btn=$("<button>X</button>").on("click", function(){
+			$(this)
+			.parent()
+			.addClass("animate__fadeOutRight")
+			.one("animationend", function(){
+				$(this).remove();
+			});
+		});
+		
+		//입력한 문자열 읽어와서 
+		var msg=$("#inputMsg").val();
+		//li 요소를 동적으로 만들어서 아이디가 msgList 인 곳에 추가하기 
+		$("<li/>")
+		.text(msg)
+		.appendTo("#msgList")
+		.addClass("animate__animated animate__fadeIn")
+		.append($btn);
+	});
+</script>
+</body>
+</html>
+
+
+
+
+
+
