@@ -1,0 +1,17 @@
+<p>user_list.html 페이지 입니다.</p>
+<table>
+	<thead>
+		<tr>
+			<th>이름</th>
+			<th>이메일</th>
+			<th>등록일</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="tmp in userList">
+			<td>{{tmp.name}}</td>
+			<td>{{tmp.email}}</td>
+			<td>{{tmp.regdate}}</td>
+		</tr>
+	</tbody>
+</table>

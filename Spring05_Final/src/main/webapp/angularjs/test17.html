@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="UTF-8">
+<title>/angularjs/test17.html</title>
+<script src="../resources/js/angular.min.js"></script>
+<script src="../resources/js/angular-route.min.js"></script>
+<script>
+	var myApp=angular.module("myApp", ["ngRoute"]);
+	//컨트롤러 만들기 
+	myApp.controller("userListCtrl", function($scope){
+		//셈플데이터
+		$scope.userList=[{
+			name:"김구라",
+			email:"aaa@",
+			regdate:"2012"
+		},{
+			name:"해골",
+			email:"bbb@",
+			regdate:"2013"
+		},{
+			name:"원숭이",
+			email:"ccc@",
+			regdate:"2014"
+		}];
+	});
+	//싱글 페이지 라우터를 사용하기 위한 설정 
+	myApp.config(function($routeProvider){
+		$routeProvider
+		.when("/home",{templateUrl:"include/home.html"})
+		.when("/user_list",{templateUrl:"include/user_list.html", controller:"userListCtrl"})
+		.otherwise({redirectTo:"/home"});
+	});
+</script>
+</head>
+<body>
+	<div class="container">
+		<h1>router 테스트 입니다.</h1>
+		<ul class="nav">
+			<li><a href="#home">홈</a></li>
+			<li><a href="#user_list">회원목록</a></li>
+		</ul>
+	</div>
+	<ng-view></ng-view>
+</body>
+</html>
+
+
+
+
+
