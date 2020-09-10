@@ -28,11 +28,28 @@
 			$scope.cafeList=data;
 		});
 	});
+	
+	cafeApp.controller("cafeDetailCtrl", function($scope, $http, $routeParams){
+		//자세히 보여줄 글번호를 읽어온다.  /cafe_detail/:num  =>  /cafe_detail/3
+		var num=$routeParams.num; 
+		//해당글의 정보를 ajax 요청을 통해서 서버로 부터 얻어온다.
+		$http({
+			url:"/spring05/cafe/ajax_detail.do",
+			method:"GET",
+			params:{num:num}
+		}).success(function(data){
+			// {num:1, title:"xxx", content:"xxx", regdate:"xxx"}
+			console.log(data);
+			$scope.cafeDto=data;
+		});
+	});
+	
 	cafeApp.config(function($routeProvider){
 		//$routeProvider 객체를 이용해서 페이지 내에서의 이동 설정하기 
 		$routeProvider
 		.when("/home", {templateUrl:"views/home.html"})
 		.when("/cafe_list", {templateUrl:"views/cafe_list.html", controller:"cafeListCtrl"})
+		.when("/cafe_detail/:num", {templateUrl:"views/cafe_detail.html", controller:"cafeDetailCtrl"})
 		.otherwise({redirectTo:"/home"});
 	});
 </script>

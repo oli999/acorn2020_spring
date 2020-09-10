@@ -1,5 +1,6 @@
-<table>
-	<thead>
+<h1>카페 글 목록 입니다.</h1>
+<table class="table table-striped">
+	<thead class="thead-dark">
 		<tr>
 			<th>번호</th>
 			<th>작성자</th>
@@ -11,7 +12,7 @@
 		<tr data-ng-repeat="tmp in cafeList">
 			<td>{{tmp.num}}</td>
 			<td>{{tmp.writer}}</td>
-			<td>{{tmp.title}}</td>
+			<td><a href="#cafe_detail/{{tmp.num}}">{{tmp.title}}</a></td>
 			<td data-ng-bind="tmp.regdate"></td>
 		</tr>
 	</tbody>

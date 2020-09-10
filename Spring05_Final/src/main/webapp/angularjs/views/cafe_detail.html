@@ -1,0 +1,17 @@
+<h1>글 자세히 보기 페이지 입니다.</h1>
+<table>
+	<tr>
+		<th>제목</th>
+		<td>{{cafeDto.title}}</td>
+	</tr>
+	<tr>
+		<th>작성자</th>
+		<td>{{cafeDto.writer}}</td>
+	</tr>
+	<tr>
+		<th>등록일</th>
+		<td data-ng-bind="cafeDto.regdate"></td>
+	</tr>
+</table>
+<div data-ng-bind-html="cafeDto.content"></div>
+
