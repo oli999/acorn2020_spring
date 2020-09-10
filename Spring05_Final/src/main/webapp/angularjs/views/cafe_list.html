@@ -1,0 +1,18 @@
+<table>
+	<thead>
+		<tr>
+			<th>번호</th>
+			<th>작성자</th>
+			<th>제목</th>
+			<th>등록일</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr data-ng-repeat="tmp in cafeList">
+			<td>{{tmp.num}}</td>
+			<td>{{tmp.writer}}</td>
+			<td>{{tmp.title}}</td>
+			<td data-ng-bind="tmp.regdate"></td>
+		</tr>
+	</tbody>
+</table>

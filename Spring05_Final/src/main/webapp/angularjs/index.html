@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html data-ng-app="cafeApp">
+<head>
+<meta charset="UTF-8">
+<title>/angularjs/index.html</title>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+<link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>   
+<style>
+	/* .page-change-animation 클래스를 가지고 있는 요소가 만들어 질때 적용할 애니매이션 */
+	.page-change-animation.ng-enter{
+		animation: flipInX 0.4s ease-out;
+	}
+</style>
+<script src="../resources/js/angular.min.js"></script>
+<script src="../resources/js/angular-route.min.js"></script>
+<script src="../resources/js/angular-animate.min.js"></script>
+<script>
+	var cafeApp=angular.module("cafeApp", ["ngRoute","ngAnimate"]);
+	cafeApp.controller("cafeListCtrl", function($scope, $http){
+		$http({
+			url:"/spring05/cafe/ajax_list.do",
+			method:"GET"
+		}).success(function(data){
+			//서버에서 응답한 데이터 콘솔창에 출력해보기
+			console.log(data);
+			//cafeList 라는 모델에 데이터 대입하기
+			$scope.cafeList=data;
+		});
+	});
+	cafeApp.config(function($routeProvider){
+		//$routeProvider 객체를 이용해서 페이지 내에서의 이동 설정하기 
+		$routeProvider
+		.when("/home", {templateUrl:"views/home.html"})
+		.when("/cafe_list", {templateUrl:"views/cafe_list.html", controller:"cafeListCtrl"})
+		.otherwise({redirectTo:"/home"});
+	});
+</script>
+</head>
+<body>
+<div class="container">
+	<h1>Router 테스트 예제</h1>
+	<ul>
+		<li><a href="#home">Home</a></li>
+		<li><a href="#cafe_list">목록보기</a></li>
+	</ul>
+	<div data-ng-view></div>
+</div>
+</body>
+</html>
+
+
+
+
+
