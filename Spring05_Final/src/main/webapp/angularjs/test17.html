@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html data-ng-app="myApp">
 <head>
 <meta charset="UTF-8">
 <title>/angularjs/test17.html</title>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+<style>
+	/* .page-change-animation 클래스를 가지고 있는 요소가 만들어 질때 적용할 애니매이션 */
+	.page-change-animation.ng-enter{
+		animation: flipInX 0.4s ease-out;
+	}
+</style>
 <script src="../resources/js/angular.min.js"></script>
 <script src="../resources/js/angular-route.min.js"></script>
+<script src="../resources/js/angular-animate.min.js"></script>
 <script>
-	var myApp=angular.module("myApp", ["ngRoute"]);
+	var myApp=angular.module("myApp", ["ngRoute","ngAnimate"]);
 	//컨트롤러 만들기 
 	myApp.controller("userListCtrl", function($scope){
 		//셈플데이터
@@ -41,7 +50,7 @@
 			<li><a href="#user_list">회원목록</a></li>
 		</ul>
 	</div>
-	<ng-view></ng-view>
+	<div data-ng-view class="page-change-animation"></div>
 </body>
 </html>
 
