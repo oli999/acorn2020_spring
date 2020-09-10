@@ -13,5 +13,6 @@
 		<td data-ng-bind="cafeDto.regdate"></td>
 	</tr>
 </table>
-<div data-ng-bind-html="cafeDto.content"></div>
+<div>{{cafeDto.content}}</div>
+<button data-ng-click="goList()" class="btn btn-info">목록 보기</button>
 
