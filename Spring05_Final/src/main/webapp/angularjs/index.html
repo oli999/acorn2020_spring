@@ -84,17 +84,67 @@
 			console.log(data);
 			$rootScope.id=data.id;
 		});
+		$rootScope.onSubmit=function(){
+			$http({
+				url:"/spring05/users/ajax_login.do",
+				method:"POST",
+				params:{id:$rootScope.inputId, pwd:$rootScope.inputPwd},
+				headers:{"Content-Type":"application/x-www-form-urlencoded;charset=utf-8"}
+			}).success(function(data){
+				console.log(data);
+				if(data.isSuccess){
+					//로그인 성공인 경우 
+					$rootScope.id=data.id;
+					$rootScope.isLoginFail=false;
+					$rootScope.isShowModal=false;
+				}else{
+					$rootScope.isLoginFail=true;
+				}
+			});
+		};
 	});
 </script>
 </head>
 <body>
 <div class="container">
+	<p data-ng-show="id != null"> 
+		<strong>{{id}}</strong> 님 로그인중... 
+		<button class="btn btn-warning btn-sm" data-ng-click="logout()">로그아웃</button>
+	</p>
+	<p data-ng-show="id == null"><button data-ng-click="isShowModal=true" class="btn btn-success btn-sm">로그인하기</button></p>
 	<h1>Router 테스트 예제 <strong>{{myName}}|{{count}}</strong></h1>
 	<ul class="nav nav-pills">
 		<li class="nav-item"><a data-ng-class="{active:currentPage=='home'}" class="nav-link" href="#home">Home</a></li>
 		<li class="nav-item"><a data-ng-class="{active:currentPage=='cafe_list'}" class="nav-link" href="#cafe_list">목록보기</a></li>
 	</ul>
 	<div data-ng-view class="page-change-animation"></div>
+</div>
+<div class="modal" tabindex="-1" data-ng-show="isShowModal" style="display:block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">로그인 폼</h5>
+        <button data-ng-click="isShowModal=false" type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       	<form data-ng-submit="onSubmit()">
+       		<div class="form-group">
+       			<label for="id">아이디</label>
+       			<input data-ng-model="inputId" type="text" name="id" id="id" class="form-control"/>
+       		</div>
+       		<div class="form-group">
+       			<label for="pwd">비밀번호</label>
+       			<input data-ng-model="inputPwd" type="text" name="pwd" id="pwd" class="form-control"/>
+       		</div>
+       		<button type="reset" class="btn btn-secondary">취소</button>
+        	<button type="submit" class="btn btn-primary">로그인</button>
+       	</form>
+       	<p ng-show="isLoginFail" class="alert alert-danger">아이디 혹은 비밀번호가 틀려요!</p>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>
