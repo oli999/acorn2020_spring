@@ -102,6 +102,15 @@
 				}
 			});
 		};
+		//로그아웃 버튼을 누르면 호출되는 함수 
+		$rootScope.logout=function(){
+			$http({
+				url:"/spring05/users/ajax_logout.do",
+				method:"GET"
+			}).success(function(data){
+				$rootScope.id=null;
+			});
+		};
 	});
 </script>
 </head>

@@ -168,6 +168,14 @@ public class UsersController {
 		//로그인 실패인 경우 {"isSuccess":false}
 		return service.ajaxLoginProcess(dto, session);
 	}
+	@RequestMapping("/users/ajax_logout")
+	@ResponseBody
+	public Map<String, Object> ajaxLogout(HttpSession session){
+		session.invalidate();
+		Map<String, Object> map=new HashMap<>();
+		map.put("isSuccess", true);
+		return map;
+	}
 }
 
 
