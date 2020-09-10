@@ -17,7 +17,7 @@
 <script src="../resources/js/angular-animate.min.js"></script>
 <script>
 	var cafeApp=angular.module("cafeApp", ["ngRoute","ngAnimate"]);
-	cafeApp.controller("cafeListCtrl", function($scope, $http){
+	cafeApp.controller("cafeListCtrl", function($scope, $http, $rootScope){
 		$http({
 			url:"/spring05/cafe/ajax_list.do",
 			method:"GET"
@@ -27,6 +27,7 @@
 			//cafeList 라는 모델에 데이터 대입하기
 			$scope.cafeList=data;
 		});
+		$rootScope.count++;
 	});
 	
 	cafeApp.controller("cafeDetailCtrl", function($scope, $http, $routeParams, $location){
@@ -52,19 +53,46 @@
 	cafeApp.config(function($routeProvider){
 		//$routeProvider 객체를 이용해서 페이지 내에서의 이동 설정하기 
 		$routeProvider
-		.when("/home", {templateUrl:"views/home.html"})
-		.when("/cafe_list", {templateUrl:"views/cafe_list.html", controller:"cafeListCtrl"})
-		.when("/cafe_detail/:num", {templateUrl:"views/cafe_detail.html", controller:"cafeDetailCtrl"})
+		.when("/home", {page:"home", title: "인덱스 페이지", templateUrl:"views/home.html"})
+		.when("/cafe_list", {page:"cafe_list", title:"목록보기 페이지", templateUrl:"views/cafe_list.html", controller:"cafeListCtrl"})
+		.when("/cafe_detail/:num", {page:"cafe_detail",title:"자세히보기 페이지", templateUrl:"views/cafe_detail.html", controller:"cafeDetailCtrl"})
 		.otherwise({redirectTo:"/home"});
+	});
+	//초기화 되는 시점에 무언가 동작을 하고(준비) 싶을때 .run() 을 호출해서 함수를 전달한다.
+	cafeApp.run(function($rootScope, $route, $http){
+		/*
+			$rootScope 는 최상위 영역 객체 
+			$route 페이지 라우트에 관련된 객체
+		*/
+		//페이지 전환이 완료 되었을때 호출되는 함수 등록
+		$rootScope.$on("$routeChangeSuccess", function(){
+			//페이지 타이틀 바꿔주기
+			document.title=$route.current.title;
+			//nav 요소에 active 가 바뀔수 있도록 해 준다.
+			$rootScope.currentPage=$route.current.page;
+		});
+		//최상위 영역 객체에 모델 정의하기 
+		$rootScope.myName="김구라";
+		$rootScope.count=0;
+		//로그인 여부를 요청해서 로그인된 아이디를 응답 받는다. 
+		$http({
+			url:"/spring05/users/ajax_login_check.do",
+			method:"GET"
+		})
+		.success(function(data){
+			// data => {id: "gura" or null }
+			console.log(data);
+			$rootScope.id=data.id;
+		});
 	});
 </script>
 </head>
 <body>
 <div class="container">
-	<h1>Router 테스트 예제</h1>
-	<ul>
-		<li><a href="#home">Home</a></li>
-		<li><a href="#cafe_list">목록보기</a></li>
+	<h1>Router 테스트 예제 <strong>{{myName}}|{{count}}</strong></h1>
+	<ul class="nav nav-pills">
+		<li class="nav-item"><a data-ng-class="{active:currentPage=='home'}" class="nav-link" href="#home">Home</a></li>
+		<li class="nav-item"><a data-ng-class="{active:currentPage=='cafe_list'}" class="nav-link" href="#cafe_list">목록보기</a></li>
 	</ul>
 	<div data-ng-view class="page-change-animation"></div>
 </div>
