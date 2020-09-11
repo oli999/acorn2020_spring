@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp">
+<head>
+<meta charset="UTF-8">
+<title>jsonp05.html</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+<script>
+	var myApp=angular.module("myApp", []);
+	myApp.controller("one", function($scope, $http){
+		$scope.send=function(){
+			var url="http://localhost:8888/spring05/angularjs/jsonp02.jsp?callback=JSON_CALLBACK"
+			$http
+			.jsonp(url, {params:{msg:$scope.inputMsg}})
+			.success(function(data){
+				console.log(data);
+				$scope.result=data;
+			})
+			.error(function(data){
+				console.log(data);
+			});
+		};
+	});
+</script>
+</head>
+<body data-ng-controller="one">
+<h1>Angular 를 활용한  jsonp 예제</h1>
+<input type="text" data-ng-model="inputMsg" placeholder="메세지 입력..."/>
+<button data-ng-click="send()">전송</button>
+<p>{{result}}</p>
+</body>
+</html>
+
+
+
+
