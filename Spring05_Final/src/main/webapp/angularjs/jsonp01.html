@@ -16,7 +16,7 @@
 <script>
 	$("#getBtn").click(function(){
 		$("<script/>")
-		.attr("src","http://localhost:8888/spring05/angularjs/jsonp01.jsp")
+		.attr("src","http://localhost:8888/spring05/angularjs/jsonp01.jsp?callback=toClient")
 		.appendTo("head");
 	});
 	
