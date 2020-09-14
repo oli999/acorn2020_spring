@@ -23,6 +23,7 @@ public interface UsersService {
 	public void updateUserPwd(HttpSession session, UsersDto dto,
 			ModelAndView mView);
 	public Map<String, Object> ajaxLoginProcess(UsersDto dto, HttpSession session);
+	public boolean jsonpLogin(UsersDto dto);
 }
 
 
