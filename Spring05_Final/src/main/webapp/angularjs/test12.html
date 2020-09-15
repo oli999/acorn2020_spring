@@ -8,26 +8,41 @@
 <script>
 	var cafeApp=angular.module("cafeApp", []);
 	cafeApp.controller("cafeCtrl", function($scope, $http){
-		//페이지 로딩되는 시점에 실행되는 영역
-		$scope.pageNum=1;
+		
 		//ajax 로 카페 글 목록을 요청
 		$http({
 			url:"/spring05/cafe/ajax_list.do",
-			method:"get",
-			params:{pageNum:$scope.pageNum}
+			method:"get"
 		}).success(function(data){
-			$scope.list=data;
+			console.log(data);
+			//data => {"list":[{},{},{}...], "paging":{}}
+			$scope.list=data.list;
+			//페이징 처리에 필요한 값을 모델로 관리 하기 
+			$scope.paging=data.paging;
+			var pageNums=[];
+			for(var i=data.paging.startPageNum; i<=data.paging.endPageNum; i++){
+				pageNums.push(i);
+			}
+			$scope.pageNums=pageNums;
 		});
-		//다음 페이지 버튼을 눌렀을때 호출되는 함수 
-		$scope.next=function(){
-			$scope.pageNum++;
+		
+		$scope.getPage=function(num){
 			//ajax 로 카페 글 목록을 요청
 			$http({
 				url:"/spring05/cafe/ajax_list.do",
 				method:"get",
-				params:{pageNum:$scope.pageNum}
+				params:{pageNum:num}
 			}).success(function(data){
-				$scope.list=data;
+				console.log(data);
+				//data => {"list":[{},{},{}...], "paging":{}}
+				$scope.list=data.list;
+				//페이징 처리에 필요한 값을 모델로 관리 하기 
+				$scope.paging=data.paging;
+				var pageNums=[];
+				for(var i=data.paging.startPageNum; i<=data.paging.endPageNum; i++){
+					pageNums.push(i);
+				}
+				$scope.pageNums=pageNums;
 			});
 		};
 	});
@@ -56,10 +71,33 @@
 				</tr>
 			</tbody>
 		</table>
-		<button ng-click="next()" class="btn btn-outline-primary">다음 페이지</button>
+		<div class="page-display">
+			<ul class="pagination pagination-sm">
+				<li data-ng-if="paging.startPageNum != 1" 
+					class="page-item">
+					<a data-ng-click="getPage(paging.startPageNum-1)" 
+						class="page-link" href="#/{{paging.startPageNum-1}}">Prev</a>
+				</li>
+				<li data-ng-repeat="tmp in pageNums" 
+						class="page-item"
+						data-ng-class="{active: paging.pageNum == tmp }">
+					<a data-ng-click="getPage(tmp)"
+						class="page-link" href="#/{{tmp}}">{{tmp}}</a>
+				</li>
+				<li data-ng-if="paging.endPageNum < paging.totalPageCount"
+					class="page-item">
+					<a data-ng-click="getPage(paging.endPageNum+1)" 
+						class="page-link" href="#/{{paging.endPageNum+1}}">Next</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>
+
+
+
+
 
 
 

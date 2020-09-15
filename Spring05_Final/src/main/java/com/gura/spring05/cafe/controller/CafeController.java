@@ -119,7 +119,7 @@ public class CafeController {
 	
 	@RequestMapping("/cafe/ajax_list")
 	@ResponseBody
-	public List<CafeDto> ajaxList(HttpServletRequest request){
+	public Map<String, Object> ajaxList(HttpServletRequest request){
 		
 		return cafeService.getList2(request);
 	}

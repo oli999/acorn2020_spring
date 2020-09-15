@@ -1,7 +1,9 @@
 package com.gura.spring05.cafe.service;
 
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -303,7 +305,7 @@ public class CafeServiceImpl implements CafeService{
 	}
 
 	@Override
-	public List<CafeDto> getList2(HttpServletRequest request) {
+	public Map<String, Object> getList2(HttpServletRequest request) {
 		//보여줄 페이지의 번호
 		int pageNum=1;
 		//보여줄 페이지의 번호가 파라미터로 전달되는지 읽어와 본다.	
@@ -344,10 +346,45 @@ public class CafeServiceImpl implements CafeService{
 				dto.setWriter(keyword);
 			}
 		}
-		//카페글 목록 얻어오기
+		//파일 목록 얻어오기
 		List<CafeDto> list=cafeDao.getList(dto);
-
-		return list;
+		//전체 row 의 갯수 
+		int totalRow=cafeDao.getCount(dto);
+		
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=
+				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		//시작 페이지 번호
+		int startPageNum=
+			1+((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+		//끝 페이지 번호
+		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
+		//끝 페이지 번호가 잘못된 값이라면 
+		if(totalPageCount < endPageNum){
+			endPageNum=totalPageCount; //보정해준다. 
+		}
+		
+		//EL 에서 사용할 값을 미리 request 에 담아두기
+		request.setAttribute("list", list);
+		request.setAttribute("startPageNum", startPageNum);
+		request.setAttribute("endPageNum", endPageNum);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("totalPageCount", totalPageCount);
+		
+		//글목록과 페이징 처리에 관련된 값을 담을 Map 객체 생성
+		Map<String, Object> map=new HashMap<>();
+		//글목록을 전체 Map 에 담아준다. 
+		map.put("list", list);
+		
+		//페이징 처리에 필요한 값을 Map 에 담아서 
+		Map<String, Integer> paging=new HashMap<>();
+		paging.put("startPageNum", startPageNum);
+		paging.put("endPageNum", endPageNum);
+		paging.put("pageNum", pageNum);
+		paging.put("totalPageCount", totalPageCount);
+		//전체 Map 에 담아준다. 
+		map.put("paging", paging);
+		return map;
 	}
 	
 }
