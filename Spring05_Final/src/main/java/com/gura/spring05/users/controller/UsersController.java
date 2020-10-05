@@ -166,6 +166,7 @@ public class UsersController {
 		//서비스가 리턴해주는 Map 객체를 리턴하면 json 문자열이 응답된다.
 		//로그인 성공인 경우 {"isSuccess":true, "id":"gura1"} 
 		//로그인 실패인 경우 {"isSuccess":false}
+		System.out.println(dto.getId());
 		return service.ajaxLoginProcess(dto, session);
 	}
 	@RequestMapping("/users/ajax_logout")
