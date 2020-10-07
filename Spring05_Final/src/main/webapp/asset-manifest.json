@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/spring05/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/spring05/static/js/main.169c7516.chunk.js",
+    "main.js.map": "/spring05/static/js/main.169c7516.chunk.js.map",
+    "runtime-main.js": "/spring05/static/js/runtime-main.2e277099.js",
+    "runtime-main.js.map": "/spring05/static/js/runtime-main.2e277099.js.map",
+    "static/js/2.a0d3db97.chunk.js": "/spring05/static/js/2.a0d3db97.chunk.js",
+    "static/js/2.a0d3db97.chunk.js.map": "/spring05/static/js/2.a0d3db97.chunk.js.map",
+    "index.html": "/spring05/index.html",
+    "precache-manifest.6cdfec45fc2b0730bd21ef1d58a9078f.js": "/spring05/precache-manifest.6cdfec45fc2b0730bd21ef1d58a9078f.js",
+    "service-worker.js": "/spring05/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/spring05/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.a0d3db97.chunk.js.LICENSE.txt": "/spring05/static/js/2.a0d3db97.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2e277099.js",
+    "static/js/2.a0d3db97.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.169c7516.chunk.js"
+  ]
+}

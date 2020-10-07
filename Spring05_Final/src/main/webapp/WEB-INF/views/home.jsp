@@ -28,6 +28,7 @@
 		<li><a href="shop/list.do">상품 목록 보기</a></li>
 		<li><a href="angularjs/test01.jsp">angularjs  테스트</a></li>
 		<li><a href="css3/Step01_BorderRadius.html">css3 테스트</a></li>
+		<li><a href="index.html">ReactJs 테스트</a></li>
 	</ul>
 </div>
 </body>
